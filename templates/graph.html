@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="author" content="Mingyi Zhang">
+        <!-- <link rel="icon" href="favicon.ico"> -->
+    
+        <title>Stock Data Lookup Demo</title>
+    
+        <!-- Bootstrap core CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+        <!-- Custom CSS for navbar-->
+        <style>
+        body {
+          padding-top: 70px;
+        }
+        </style>
+
+        <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-2.0.2.min.css" type="text/css" />
+
+
+        <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-2.0.2.min.js"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        {{ script | safe }}  
+    </head>
+
+    <body>
+        
+    
+    
+        <!--display Bokeh plot-->
+        <!--<div class="row align-items-center justify-content-center">-->
+        <div class="centered" style="background-color: bisque;">
+            <div>
+                {{ div | safe }}
+            </div>
+        </div>
+    
+    
+        
+    
+    
+    
+    
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+    
+</html>
