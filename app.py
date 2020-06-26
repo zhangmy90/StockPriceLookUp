@@ -19,8 +19,13 @@ import pprint
 import requests
 
 app = Flask(__name__)
+app.vars = {}
 
-@app.route('/',methods=['GET','POST'])
+@app.route('/')
+def main():
+    return redirect('/index')
+
+@app.route('/index',methods=['GET','POST'])
 def index():
   if request.method == 'GET':
     return render_template('index.html')
