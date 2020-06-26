@@ -33,7 +33,7 @@ def index():
     # request was a POST
     ticker = request.form["ticker"].upper()
     # Create data frame for the ticker (request with API key)
-    df = stocks_data.stock_info(ticker)
+    df = stock_info(ticker)
       
     # for request sent from checkboxes
     open = request.form.get("open")
@@ -49,7 +49,7 @@ def index():
     variables = list(set(variables))
     columns = [inputs[checkbox] for checkbox in variables] 
      
-    script, div = stocks_data.plot1(df, ticker, columns)
+    script, div = plot1(df, ticker, columns)
       
     column = request.form["column"]
     # If none of the checkbox is selected
@@ -58,7 +58,7 @@ def index():
         return render_template('index.html')
        
       else:
-        script, div = stocks_data.plot2(df, ticker, column)      
+        script, div = plot2(df, ticker, column)      
     return render_template('graph.html', script = script, div = div, ticker = ticker)
 
 if __name__ == '__main__':
