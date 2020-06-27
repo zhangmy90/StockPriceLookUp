@@ -84,7 +84,7 @@ def stock_info(ticker):
         "6. volume": "volume", 
         "7. dividend amount": "dividend_amount", 
         "8. split coefficient": "split_coefficient"})
-      df = df.drop(columns = ['volumn','dividend_amount','split_coefficient'])
+      df = df.drop(columns = ['volume','dividend_amount','split_coefficient'])
 
       # change to datetime
       df['date'] = pd.to_datetime(df['date'])
