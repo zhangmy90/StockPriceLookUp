@@ -7,7 +7,7 @@
         <meta name="author" content="Mingyi Zhang">
         <!-- <link rel="icon" href="favicon.ico"> -->
     
-        <title>Stock Data Lookup Demo</title>
+        <title>Graph of Data Lookup Demo</title>
     
         <!-- Bootstrap core CSS -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -26,7 +26,7 @@
         <script type="text/javascript">
             Bokeh.set_log_level("info");
         </script>
-        {{ script | safe }}  
+        {{ script }}  
     </head>
 
     <body>
@@ -37,7 +37,7 @@
         <!--<div class="row align-items-center justify-content-center">-->
         <div class="centered" style="background-color: bisque;">
             <div>
-                {{ div | safe }}
+                {{ div }}
             </div>
         </div>
     

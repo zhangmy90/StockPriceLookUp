@@ -41,7 +41,7 @@ def index():
    
     inputs = {}
     variables = []
-    for checkbox in 'open', 'close', 'adjusted_close', 'volume':
+    for checkbox in 'open', 'close', 'adjusted_close', 'high','low':
       value = request.form.get(checkbox)
       if value:
         inputs[checkbox] = checkbox
@@ -49,16 +49,9 @@ def index():
     variables = list(set(variables))
     columns = [inputs[checkbox] for checkbox in variables] 
      
-    script, div = plot1(df, ticker, columns)
+    script, div = plot(df, ticker, columns)
       
-    column = request.form["column"]
-    # If none of the checkbox is selected
-    if not variables:
-      if column not in ('open', 'close', 'adjusted_close', 'volume'):
-        return render_template('index.html')
-       
-      else:
-        script, div = plot2(df, ticker, column)      
+  
     return render_template('graph.html', script = script, div = div, ticker = ticker)
 
 if __name__ == '__main__':
@@ -91,7 +84,7 @@ def stock_info(ticker):
         "6. volume": "volume", 
         "7. dividend amount": "dividend_amount", 
         "8. split coefficient": "split_coefficient"})
-      df = df.drop(columns = ['split_coefficient'])
+      df = df.drop(columns = ['volumn','dividend_amount','split_coefficient'])
 
       # change to datetime
       df['date'] = pd.to_datetime(df['date'])
@@ -108,7 +101,7 @@ def stock_info(ticker):
       return df
 
 
-def plot1(df, ticker, columns, hover_tool = None):
+def plot(df, ticker, columns, hover_tool = None):
     select_tools = ['box_select', 'lasso_select', 'poly_select', 'tap', 'reset', 'redo', 'save']
     
     # columns = ['open', 'high', 'low', 'close', 'adjusted_close']
@@ -142,46 +135,3 @@ def plot1(df, ticker, columns, hover_tool = None):
 def datetime(x):
     return np.array(x, dtype=np.datetime64)
 
-def plot2(df, ticker, column):
-    select_tools = ['box_select', 'lasso_select', 'poly_select', 'tap', 'reset', 'redo','save']
-
-    if column in df.columns:
-
-      d ={
-        'dates': df['date'],
-        'price': df[column],
-        'volume': df['volume']
-      }
-
-      df = pd.DataFrame(data = d)
-      df['date'] = pd.to_datetime(df['dates'], unit='us')
-
-      p = figure(title = "--".join([ticker,column]), 
-                  x_axis_type = "datetime", 
-                  x_axis_label = 'Time',
-                  y_axis_label = 'Price (USD)',
-                  plot_height = 600, plot_width = 800,
-                  toolbar_location = 'below',
-                  tools = select_tools)
-
-      p.title.align = "center"
-      p.title.text_font_size = "20px"
-      p.grid.grid_line_color="white"
-      p.background_fill_color="#f5f5f5"
-      p.axis.axis_line_color = None
-      p.line(x='date', y = 'price', source = df, line_width=2, line_color = 'orange')
-      
-      tooltips = [
-        ('Date', '@date{%Y%m%d %H:%M}'),
-        ('Stock Price', "@price"),
-        ('Volume', "@volume")
-      ]
-
-      formatters = {
-        'date': 'datetime',
-        'price': 'printf',
-        'volume': 'printf',
-      }
-      p.add_tools(HoverTool(tooltips = tooltips, formatters=formatters, mode='vline')) #, formatters, mode='vline'))
-      script, div = components(p)
-      return script, div
